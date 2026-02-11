@@ -35,6 +35,7 @@ const uq4_12_t gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES]
     [TYPE_DARK]     = {______, ______, X(0.5), ______, ______, ______, ______, ______, X(2.0), STL_RS, ______, ______, ______, ______, ______, X(2.0), ______, ______, X(0.5), X(0.5), ______},
     [TYPE_FAIRY]    = {______, ______, X(2.0), ______, X(0.5), ______, ______, ______, ______, X(0.5), ______, X(0.5), ______, ______, ______, ______, ______, X(2.0), X(2.0), ______, ______},
     [TYPE_STELLAR]  = {______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______},
+    [TYPE_SOUND] = {______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______},
 };
 
 #undef ______
@@ -470,6 +471,21 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .name = _("Stellar"),
         .generic = _("a STELLAR move"),
         .palette = 15,
+        .zMove = MOVE_BREAKNECK_BLITZ,
+        .maxMove = MOVE_MAX_STRIKE,
+        .teraTypeRGBValue = RGB(10, 18, 27),
+        .paletteTMHM = gItemIconPalette_NormalTMHM, // failsafe
+        .useSecondTypeIconPalette = FALSE,
+        .isSpecialCaseType = TRUE,
+        .isHiddenPowerType = FALSE,
+        // .teraShard = ITEM_STELLAR_TERA_SHARD,
+    },
+
+    [TYPE_SOUND] =
+    {
+        .name = _("Sound"),
+        .generic = _("a SOUND move"),
+        .palette = 14,
         .zMove = MOVE_BREAKNECK_BLITZ,
         .maxMove = MOVE_MAX_STRIKE,
         .teraTypeRGBValue = RGB(10, 18, 27),
