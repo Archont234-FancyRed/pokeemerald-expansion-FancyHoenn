@@ -396,6 +396,7 @@ const u8 gMoveBackgroundNames[BG_COUNT][MOVE_BACKGROUND_NAME_LENGTH] =
     [BG_HURRICANE]                 = _("Hurricane"),
     [BG_ELECTRIC_TERRAIN]          = _("Electric Terrain"),
     [BG_GRASSY_TERRAIN]            = _("Grassy Terrain"),
+    [BG_COSMIC_TERRAIN]            = _("Cosmic Terrain"),
     [BG_MISTY_TERRAIN]             = _("Misty Terrain"),
     [BG_PSYCHIC_TERRAIN]           = _("Psychic Terrain"),
     [BG_FOCUS_BLAST]               = _("Focus Blast"),

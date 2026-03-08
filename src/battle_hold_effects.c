@@ -118,6 +118,8 @@ static enum ItemEffect TryTerrainSeeds(enum BattlerId battler, enum Item item)
         break;
     case HOLD_EFFECT_PARAM_PSYCHIC_TERRAIN:
         effect = TryHandleSeed(battler, STATUS_FIELD_PSYCHIC_TERRAIN, STAT_SPDEF);
+    case HOLD_EFFECT_PARAM_COSMIC_TERRAIN:
+        effect = TryHandleSeed(battler, STATUS_FIELD_COSMIC_TERRAIN, STAT_SPATK);
         break;
     }
 

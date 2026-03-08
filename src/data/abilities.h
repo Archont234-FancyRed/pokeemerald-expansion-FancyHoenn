@@ -2413,4 +2413,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
+
+    [ABILITY_COSMIC_SURGE] =
+    {
+        .name = _("Cosmic Surge"),
+        .description = COMPOUND_STRING("Field becomes Cosmic."),
+        .aiRating = 8,
+    },
 };

@@ -810,12 +810,25 @@ static bool32 HandleEndTurnTelekinesis(enum BattlerId battler)
 
     gBattleStruct->eventState.endTurnBattler++;
 
-    if (gBattleMons[battler].volatiles.telekinesisTimer > 0 && --gBattleMons[battler].volatiles.telekinesisTimer == 0)
+    if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
     {
-        gBattleMons[battler].volatiles.telekinesis = FALSE;
-        BattleScriptExecute(BattleScript_TelekinesisEndTurn);
-        effect = TRUE;
+        if (gBattleMons[battler].volatiles.telekinesisCosmicTerrainTimer > 0 && --gBattleMons[battler].volatiles.telekinesisCosmicTerrainTimer == 0)
+        {
+            gBattleMons[battler].volatiles.telekinesis = FALSE;
+            BattleScriptExecute(BattleScript_TelekinesisEndTurn);
+            effect = TRUE;
+        }
     }
+    else
+    {
+        if (gBattleMons[battler].volatiles.telekinesisTimer > 0 && --gBattleMons[battler].volatiles.telekinesisTimer == 0)
+        {
+            gBattleMons[battler].volatiles.telekinesis = FALSE;
+            BattleScriptExecute(BattleScript_TelekinesisEndTurn);
+            effect = TRUE;
+        }
+    }
+    
 
     return effect;
 }
@@ -1201,6 +1214,8 @@ static bool32 HandleEndTurnTerrain(enum BattlerId battler)
         effect = EndTurnTerrain(STATUS_FIELD_GRASSY_TERRAIN, B_MSG_TERRAIN_END_GRASSY);
     else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
         effect = EndTurnTerrain(STATUS_FIELD_PSYCHIC_TERRAIN, B_MSG_TERRAIN_END_PSYCHIC);
+    else if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
+        effect = EndTurnTerrain(STATUS_FIELD_COSMIC_TERRAIN, B_MSG_TERRAIN_END_COSMIC);
 
     return effect;
 }
