@@ -6010,6 +6010,8 @@ enum Type GetDynamicMoveType(struct Pokemon *mon, enum Move move, enum BattlerId
                     return TYPE_FAIRY;
                 else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
                     return TYPE_PSYCHIC;
+                else if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
+                    return TYPE_COSMIC;
                 else //failsafe
                     return moveType;
             }

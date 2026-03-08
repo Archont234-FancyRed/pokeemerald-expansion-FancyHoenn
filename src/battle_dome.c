@@ -4046,6 +4046,7 @@ static bool32 IsDomeComboMove(enum Move move)
     case EFFECT_WEATHER:
     // Terrain moves
     case EFFECT_GRASSY_TERRAIN:
+    case EFFECT_COSMIC_TERRAIN:
     case EFFECT_ELECTRIC_TERRAIN:
     case EFFECT_MISTY_TERRAIN:
     case EFFECT_PSYCHIC_TERRAIN:

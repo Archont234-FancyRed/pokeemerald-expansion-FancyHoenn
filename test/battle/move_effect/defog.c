@@ -459,6 +459,7 @@ SINGLE_BATTLE_TEST("Defog removes terrain (Gen 8+)")
     PARAMETRIZE { move = MOVE_ELECTRIC_TERRAIN; config = GEN_8; }
     PARAMETRIZE { move = MOVE_MISTY_TERRAIN;    config = GEN_8; }
     PARAMETRIZE { move = MOVE_GRASSY_TERRAIN;   config = GEN_8; }
+    PARAMETRIZE { move = MOVE_COSMIC_TERRAIN;   config = GEN_9; }
     GIVEN {
         WITH_CONFIG(CONFIG_DEFOG_EFFECT_CLEARING, config);
         PLAYER(SPECIES_WOBBUFFET) { Speed(50); }
@@ -481,6 +482,9 @@ SINGLE_BATTLE_TEST("Defog removes terrain (Gen 8+)")
             else if (move == MOVE_GRASSY_TERRAIN) {
                 MESSAGE("The grass disappeared from the battlefield.");
             }
+            else if (move == MOVE_COSMIC_TERRAIN) {
+                MESSAGE("The powers of cosmos disappeared from the battlefield.");
+            }
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_RESTORE_BG, player);
         } else {
             NONE_OF {
@@ -488,6 +492,7 @@ SINGLE_BATTLE_TEST("Defog removes terrain (Gen 8+)")
                 MESSAGE("The electricity disappeared from the battlefield.");
                 MESSAGE("The mist disappeared from the battlefield.");
                 MESSAGE("The grass disappeared from the battlefield.");
+                MESSAGE("The powers of cosmos disappeared from the battlefield.");
                 ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_RESTORE_BG, player);
             }
         }

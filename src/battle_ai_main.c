@@ -2690,6 +2690,11 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
              || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)))
                 ADJUST_SCORE(-10);
             break;
+        case EFFECT_COSMIC_TERRAIN:
+            if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN
+                || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)))
+                ADJUST_SCORE(-10);           
+            break;
         case EFFECT_ELECTRIC_TERRAIN:
             if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN
              || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)))
@@ -5484,6 +5489,15 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
                 ADJUST_SCORE(WEAK_EFFECT);
         }
         break;
+
+    case EFFECT_COSMIC_TERRAIN:
+        if (ShouldSetFieldStatus(battlerAtk, STATUS_FIELD_COSMIC_TERRAIN))
+        {
+            ADJUST_SCORE(GOOD_EFFECT);
+            if (aiData->holdEffects[battlerAtk] == HOLD_EFFECT_TERRAIN_EXTENDER || HasBattlerSideMoveWithEffect(battlerAtk, EFFECT_TERRAIN_PULSE))
+                ADJUST_SCORE(WEAK_EFFECT);
+        }
+        break;
     case EFFECT_PSYCHIC_TERRAIN:
         if (ShouldSetFieldStatus(battlerAtk, STATUS_FIELD_PSYCHIC_TERRAIN))
         {
@@ -6166,6 +6180,16 @@ static s32 AI_CalcAdditionalEffectScore(enum BattlerId battlerAtk, enum BattlerI
                  || ShouldClearFieldStatus(battlerAtk, gFieldStatuses & STATUS_FIELD_TERRAIN_ANY))
                     ADJUST_SCORE(DECENT_EFFECT);
                 break;
+            case MOVE_EFFECT_COSMIC_TERRAIN:
+                if (ShouldClearFieldStatus(battlerAtk, STATUS_FIELD_COSMIC_TERRAIN))
+                {
+                    ADJUST_SCORE(BAD_EFFECT);
+                    break;
+                }
+                if (ShouldSetFieldStatus(battlerAtk, STATUS_FIELD_COSMIC_TERRAIN)
+                    || ShouldClearFieldStatus(battlerAtk, gFieldStatuses & STATUS_FIELD_TERRAIN_ANY))
+                    ADJUST_SCORE(DECENT_EFFECT);
+                break;
             case MOVE_EFFECT_ELECTRIC_TERRAIN:
                 if (ShouldClearFieldStatus(battlerAtk, STATUS_FIELD_ELECTRIC_TERRAIN))
                 {
@@ -6334,6 +6358,7 @@ static s32 AI_ForceSetupFirstTurn(enum BattlerId battlerAtk, enum BattlerId batt
     case EFFECT_ATTACK_ACCURACY_UP:
     case EFFECT_PSYCHIC_TERRAIN:
     case EFFECT_GRASSY_TERRAIN:
+    case EFFECT_COSMIC_TERRAIN:
     case EFFECT_ELECTRIC_TERRAIN:
     case EFFECT_MISTY_TERRAIN:
     case EFFECT_STEALTH_ROCK:
@@ -6780,6 +6805,10 @@ static s32 AI_PowerfulStatus(enum BattlerId battlerAtk, enum BattlerId battlerDe
         if (!(gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN))
             ADJUST_SCORE(POWERFUL_STATUS_MOVE);
         break;
+    case EFFECT_COSMIC_TERRAIN:
+        if (!(gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN))
+            ADJUST_SCORE(POWERFUL_STATUS_MOVE);
+        break;
     case EFFECT_ELECTRIC_TERRAIN:
         if (!(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN))
             ADJUST_SCORE(POWERFUL_STATUS_MOVE);
@@ -6901,6 +6930,7 @@ static s32 AI_PredictSwitch(enum BattlerId battlerAtk, enum BattlerId battlerDef
     case EFFECT_ELECTRIC_TERRAIN:
     case EFFECT_PSYCHIC_TERRAIN:
     case EFFECT_GRASSY_TERRAIN:
+    case EFFECT_COSMIC_TERRAIN:
     case EFFECT_MISTY_TERRAIN:
         ADJUST_SCORE(GOOD_EFFECT);
         break;

@@ -2963,6 +2963,9 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
             case STATUS_FIELD_PSYCHIC_TERRAIN:
                 moveEffect = MOVE_EFFECT_SPD_MINUS_1;
                 break;
+            case STATUS_FIELD_COSMIC_TERRAIN:
+                moveEffect = MOVE_EFFECT_SPD_MINUS_1;
+                break;
             default:
                 moveEffect = MOVE_EFFECT_PARALYSIS;
                 break;
@@ -3244,6 +3247,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
     case MOVE_EFFECT_GRASSY_TERRAIN:
     case MOVE_EFFECT_ELECTRIC_TERRAIN:
     case MOVE_EFFECT_PSYCHIC_TERRAIN:
+    case MOVE_EFFECT_COSMIC_TERRAIN:
     {
         u32 statusFlag = 0;
         switch (moveEffect)
@@ -3263,6 +3267,10 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
             case MOVE_EFFECT_PSYCHIC_TERRAIN:
                 statusFlag = STATUS_FIELD_PSYCHIC_TERRAIN;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_PSYCHIC;
+                break;
+            case MOVE_EFFECT_COSMIC_TERRAIN:
+                statusFlag = STATUS_FIELD_COSMIC_TERRAIN;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_COSMIC;
                 break;
             default:
                 break;
@@ -6944,6 +6952,9 @@ static void RemoveAllTerrains(void)
     case STATUS_FIELD_GRASSY_TERRAIN:
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_GRASSY;
         break;
+    case STATUS_FIELD_COSMIC_TERRAIN:
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_COSMIC;
+        break;
     case STATUS_FIELD_ELECTRIC_TERRAIN:
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_END_ELECTRIC;
         break;
@@ -10381,6 +10392,9 @@ static void Cmd_settypetoenvironment(void)
     case STATUS_FIELD_GRASSY_TERRAIN:
         environmentType = TYPE_GRASS;
         break;
+    case STATUS_FIELD_COSMIC_TERRAIN:
+        environmentType = TYPE_COSMIC;
+        break;
     case STATUS_FIELD_MISTY_TERRAIN:
         environmentType = TYPE_FAIRY;
         break;
@@ -11355,19 +11369,44 @@ static void Cmd_settelekinesis(void)
 {
     CMD_ARGS(const u8 *failInstr);
 
-    if (gBattleMons[gBattlerTarget].volatiles.telekinesis
-        || gBattleMons[gBattlerTarget].volatiles.root
-        || gBattleMons[gBattlerTarget].volatiles.smackDown
-        || gFieldStatuses & STATUS_FIELD_GRAVITY
-        || IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
+    if(gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
     {
-        gBattlescriptCurrInstr = cmd->failInstr;
+        for (int i = 0; i < 4; i++)
+        {
+            if (gBattleMons[i].volatiles.telekinesis
+                || gBattleMons[i].volatiles.root
+                || gBattleMons[i].volatiles.smackDown
+                || gFieldStatuses & STATUS_FIELD_GRAVITY
+                || IsTelekinesisBannedSpecies(gBattleMons[i].species))
+            {
+                continue;
+            }
+
+            else
+            {
+                gBattleMons[i].volatiles.telekinesis = TRUE;
+                gBattleMons[i].volatiles.telekinesisCosmicTerrainTimer = B_TERRAIN_TIMER;
+            }
+        }
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
+
     else
     {
-        gBattleMons[gBattlerTarget].volatiles.telekinesis = TRUE;
-        gBattleMons[gBattlerTarget].volatiles.telekinesisTimer = B_TELEKINESIS_TIMER;
-        gBattlescriptCurrInstr = cmd->nextInstr;
+        if (gBattleMons[gBattlerTarget].volatiles.telekinesis
+            || gBattleMons[gBattlerTarget].volatiles.root
+            || gBattleMons[gBattlerTarget].volatiles.smackDown
+            || gFieldStatuses & STATUS_FIELD_GRAVITY
+            || IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
+        {
+            gBattlescriptCurrInstr = cmd->failInstr;
+        }
+        else
+        {
+            gBattleMons[gBattlerTarget].volatiles.telekinesis = TRUE;
+            gBattleMons[gBattlerTarget].volatiles.telekinesisTimer = B_TELEKINESIS_TIMER;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
     }
 }
 
@@ -12034,6 +12073,12 @@ void BS_SetTerrain(void)
         {
             statusFlag = STATUS_FIELD_GRASSY_TERRAIN;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_GRASSY;
+        }
+    case EFFECT_COSMIC_TERRAIN:
+        if (!(gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN))
+        {
+            statusFlag = STATUS_FIELD_COSMIC_TERRAIN;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_COSMIC;
         }
         break;
     case EFFECT_ELECTRIC_TERRAIN:

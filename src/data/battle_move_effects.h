@@ -1494,6 +1494,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 0, // TODO: Assign points
     },
 
+    [EFFECT_COSMIC_TERRAIN] =
+    {
+        .battleScript = BattleScript_EffectCosmicTerrain,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
     [EFFECT_ELECTRIC_TERRAIN] =
     {
         .battleScript = BattleScript_EffectElectricTerrain,

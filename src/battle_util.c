@@ -2441,6 +2441,8 @@ bool32 ChangeTypeBasedOnTerrain(enum BattlerId battler)
         battlerType = TYPE_FAIRY;
     else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
         battlerType = TYPE_PSYCHIC;
+    else if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
+        battlerType = TYPE_COSMIC;
     else // failsafe
         return FALSE;
 
@@ -2885,6 +2887,16 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
                         &gFieldTimers.terrainTimer, gStartingStatuses.psychicTerrain ? 0 : 5);
             gStartingStatuses.psychicTerrainTemporary = gStartingStatuses.psychicTerrain = FALSE;
             isTerrain = TRUE;
+        }
+        else if (gStartingStatuses.cosmicTerrain || gStartingStatuses.cosmicTerrainTemporary)
+        {
+            effect = SetStartingFieldStatus(
+                STATUS_FIELD_COSMIC_TERRAIN,
+                B_MSG_TERRAIN_SET_COSMIC,
+                0,
+                &gFieldTimers.terrainTimer, gStartingStatuses.cosmicTerrain ? 0 : 5);
+            gStartingStatuses.cosmicTerrainTemporary = gStartingStatuses.cosmicTerrain = FALSE;
+            isTerrain = TRUE;            
         }
         else if (gStartingStatuses.trickRoom || gStartingStatuses.trickRoomTemporary)
         {
@@ -3575,6 +3587,15 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             if (TryChangeBattleTerrain(battler, STATUS_FIELD_GRASSY_TERRAIN))
             {
                 BattleScriptCall(BattleScript_GrassySurgeActivates);
+                effect++;
+            }
+            break;
+        case ABILITY_COSMIC_SURGE:
+            if (!shouldAbilityTrigger)
+                break;
+            if (TryChangeBattleTerrain(battler, STATUS_FIELD_COSMIC_TERRAIN))
+            {
+                BattleScriptCall(BattleScript_CosmicSurgeActivates);
                 effect++;
             }
             break;
@@ -5238,6 +5259,11 @@ bool32 IsMistyTerrainAffected(enum BattlerId battler, enum Ability ability, enum
 bool32 IsGrassyTerrainAffected(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses)
 {
     return IsBattlerTerrainAffected(battler, ability, holdEffect, fieldStatuses, STATUS_FIELD_GRASSY_TERRAIN);
+}
+
+bool32 IsCosmicTerrainAffected(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses)
+{
+    return IsBattlerTerrainAffected(battler, ability, holdEffect, fieldStatuses, STATUS_FIELD_COSMIC_TERRAIN);
 }
 
 bool32 IsElectricTerrainAffected(enum BattlerId battler, enum Ability ability, enum HoldEffect holdEffect, u32 fieldStatuses)

@@ -15021,6 +15021,31 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_GrassyTerrain,
     },
 
+    [MOVE_COSMIC_TERRAIN] =
+    {
+        .name = COMPOUND_STRING("Cosmic Terrain"),
+        .description = COMPOUND_STRING(
+            "The ground turns to cosmic\n"
+            "for 5 turns. Weakens gravity."),
+        .effect = EFFECT_COSMIC_TERRAIN,
+        .power = 0,
+        .type = TYPE_COSMIC,
+        .accuracy = 0,
+        .pp = 10,
+        .target = TARGET_FIELD,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .zMove = {.effect = Z_EFFECT_DEF_UP_1 },
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .skyBattleBanned = TRUE,
+        .contestEffect = CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED, //CONTEST_EFFECT_EXCITES_AUDIENCE_MORE_IF_FIRST
+        .contestCategory = CONTEST_CATEGORY_BEAUTY,
+        .contestComboStarterId = COMBO_STARTER_COSMIC_TERRAIN,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_CosmicTerrain,
+    },
+
     [MOVE_MISTY_TERRAIN] =
     {
         .name = COMPOUND_STRING("Misty Terrain"),

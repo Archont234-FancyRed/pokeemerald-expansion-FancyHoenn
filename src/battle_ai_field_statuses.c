@@ -42,6 +42,7 @@ static enum FieldEffectOutcome BenefitsFromElectricTerrain(enum BattlerId battle
 static enum FieldEffectOutcome BenefitsFromGrassyTerrain(enum BattlerId battler);
 static enum FieldEffectOutcome BenefitsFromMistyTerrain(enum BattlerId battler);
 static enum FieldEffectOutcome BenefitsFromPsychicTerrain(enum BattlerId battler);
+static enum FieldEffectOutcome BenefitsFromCosmicTerrain(enum BattlerId battler);
 static enum FieldEffectOutcome BenefitsFromGravity(enum BattlerId battler);
 static enum FieldEffectOutcome BenefitsFromTrickRoom(enum BattlerId battler);
 
@@ -120,6 +121,8 @@ bool32 FieldStatusChecker(enum BattlerId battler, u32 fieldStatus, enum FieldEff
             result = BenefitsFromMistyTerrain(battler);
         if (fieldStatus & STATUS_FIELD_PSYCHIC_TERRAIN)
             result = BenefitsFromPsychicTerrain(battler);
+        if (fieldStatus & STATUS_FIELD_COSMIC_TERRAIN)
+            result = BenefitsFromCosmicTerrain(battler);
 
         // other field statuses
         if (fieldStatus & STATUS_FIELD_GRAVITY)
@@ -441,6 +444,44 @@ static enum FieldEffectOutcome BenefitsFromPsychicTerrain(enum BattlerId battler
     if (AI_IsAbilityOnSide(battler, ABILITY_GALE_WINGS)
      || AI_IsAbilityOnSide(battler, ABILITY_TRIAGE)
      || AI_IsAbilityOnSide(battler, ABILITY_PRANKSTER))
+        return FIELD_EFFECT_NEGATIVE;
+
+    return FIELD_EFFECT_NEUTRAL;
+}
+
+static enum FieldEffectOutcome BenefitsFromCosmicTerrain(enum BattlerId battler)
+{
+    if (DoesAbilityBenefitFromFieldStatus(gAiLogicData->abilities[battler], STATUS_FIELD_COSMIC_TERRAIN))
+        return FIELD_EFFECT_POSITIVE;
+
+    /*for (int i = 0; i < 4; i++)
+    {
+        gBattleMons[i].volatiles.telekinesis = TRUE;
+        gBattleMons[i].volatiles.telekinesisCosmicTerrainTimer = B_TERRAIN_TIMER;
+    }*/
+
+   /* if (gBattleMons[battlerDef].volatiles.telekinesis
+        || gBattleMons[battlerDef].volatiles.root
+        || gBattleMons[battlerDef].volatiles.smackDown
+        || gFieldStatuses & STATUS_FIELD_GRAVITY
+        || aiData->holdEffects[battlerDef] == HOLD_EFFECT_IRON_BALL
+        || IsTelekinesisBannedSpecies(gBattleMons[battlerDef].species)
+        || PartnerMoveIsSameAsAttacker(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))*/
+
+    if (HasBattlerTerrainBoostMove(battler, STATUS_FIELD_COSMIC_TERRAIN)
+        || HasBattlerTerrainBoostMove(BATTLE_PARTNER(battler), STATUS_FIELD_COSMIC_TERRAIN))
+        return FIELD_EFFECT_POSITIVE;
+
+    bool32 grounded = AI_IsBattlerGrounded(battler);
+    bool32 allyGrounded = FALSE;
+    if (HasPartner(battler))
+        allyGrounded = AI_IsBattlerGrounded(BATTLE_PARTNER(battler));
+
+    if (HasDamagingMoveOfType(battler, TYPE_COSMIC))
+        return FIELD_EFFECT_POSITIVE;
+
+    if (HasBattlerTerrainBoostMove(LEFT_FOE(battler), STATUS_FIELD_COSMIC_TERRAIN)
+        || HasBattlerTerrainBoostMove(RIGHT_FOE(battler), STATUS_FIELD_COSMIC_TERRAIN))
         return FIELD_EFFECT_NEGATIVE;
 
     return FIELD_EFFECT_NEUTRAL;

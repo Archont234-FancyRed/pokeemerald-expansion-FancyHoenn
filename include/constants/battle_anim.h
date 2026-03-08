@@ -539,7 +539,9 @@ enum AnimBattler
 #define BG_RAINBOW_PLAYER 81
 #define BG_RAINBOW_OPPONENT 82
 #define BG_SWAMP 83
-#define BG_COUNT 84
+#define BG_COSMIC_TERRAIN 84
+#define BG_COUNT 85
+
 
 // table ids for general animations (sBattleAnims_General)
 #define B_ANIM_STATS_CHANGE             0

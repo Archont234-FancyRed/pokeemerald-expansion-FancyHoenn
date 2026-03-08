@@ -290,7 +290,8 @@ enum VolatileFlags
     F(VOLATILE_OCTOLOCKED_BY,               octolockedBy,                  (enum BattlerId, MAX_BITS(MAX_BATTLERS_COUNT))) \
     F(VOLATILE_PARADOX_BOOSTED_STAT,        paradoxBoostedStat,            (enum Stat, NUM_STATS - 1)) \
     F(VOLATILE_UNABLE_TO_USE_MOVE,          unableToUseMove,               (u32, 1)) \
-    F(VOLATILE_ACTIVATE_DANCER,             activateDancer,                (u32, 1))
+    F(VOLATILE_ACTIVATE_DANCER,             activateDancer,                (u32, 1)) \
+    F(VOLATILE_TELEKINESIS_COSMIC_TERRAIN_TIMER,           telekinesisCosmicTerrainTimer, (u32, B_TERRAIN_TIMER))
 
 
 /* Use within a macro to get the maximum allowed value for a volatile. Requires _typeMaxValue as input. */
@@ -399,10 +400,11 @@ enum TypeSideHazard
 #define STATUS_FIELD_MISTY_TERRAIN                  (1 << 7)
 #define STATUS_FIELD_ELECTRIC_TERRAIN               (1 << 8)
 #define STATUS_FIELD_PSYCHIC_TERRAIN                (1 << 9)
-#define STATUS_FIELD_ION_DELUGE                     (1 << 10)
-#define STATUS_FIELD_FAIRY_LOCK                     (1 << 11)
+#define STATUS_FIELD_COSMIC_TERRAIN                 (1 << 10)
+#define STATUS_FIELD_ION_DELUGE                     (1 << 11)
+#define STATUS_FIELD_FAIRY_LOCK                     (1 << 12)
 
-#define STATUS_FIELD_TERRAIN_ANY        (STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN)
+#define STATUS_FIELD_TERRAIN_ANY        (STATUS_FIELD_GRASSY_TERRAIN | STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_PSYCHIC_TERRAIN | STATUS_FIELD_COSMIC_TERRAIN)
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED                (1 << 0)
@@ -560,6 +562,7 @@ enum __attribute__((packed)) MoveEffect
     MOVE_EFFECT_HAIL,
     MOVE_EFFECT_MISTY_TERRAIN,
     MOVE_EFFECT_GRASSY_TERRAIN,
+    MOVE_EFFECT_COSMIC_TERRAIN,
     MOVE_EFFECT_ELECTRIC_TERRAIN,
     MOVE_EFFECT_PSYCHIC_TERRAIN,
     MOVE_EFFECT_VINE_LASH,
@@ -755,6 +758,8 @@ enum FaintedActions
     F(STARTING_STATUS_MISTY_TERRAIN,                  mistyTerrain,               (u32, 1)) /* Misty Terrain (Permanent) */                \
     F(STARTING_STATUS_MISTY_TERRAIN_TEMPORARY,        mistyTerrainTemporary,      (u32, 1)) /* Misty Terrain Temporary (5 turns) */        \
     F(STARTING_STATUS_GRASSY_TERRAIN,                 grassyTerrain,              (u32, 1)) /* Grassy Terrain (Permanent) */               \
+    F(STARTING_STATUS_COSMIC_TERRAIN,                 cosmicTerrain,              (u32, 1)) /* Cosmic Terrain (Permanent) */               \
+    F(STARTING_STATUS_COSMIC_TERRAIN_TEMPORARY,       cosmicTerrainTemporary,     (u32, 1)) /* Cosmic Terrain (Permanent) */               \
     F(STARTING_STATUS_GRASSY_TERRAIN_TEMPORARY,       grassyTerrainTemporary,     (u32, 1)) /* Grassy Terrain Temporary (5 turns) */       \
     F(STARTING_STATUS_PSYCHIC_TERRAIN,                psychicTerrain,             (u32, 1)) /* Psychic Terrain (Permanent) */              \
     F(STARTING_STATUS_PSYCHIC_TERRAIN_TEMPORARY,      psychicTerrainTemporary,    (u32, 1)) /* Psychic Terrain Temporary (5 turns) */      \
