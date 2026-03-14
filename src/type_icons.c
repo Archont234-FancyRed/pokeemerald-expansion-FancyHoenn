@@ -160,6 +160,12 @@ const union AnimCmd sSpriteAnim_TypeIcon_Cosmic[] =
     ANIMCMD_END
 };
 
+const union AnimCmd sSpriteAnim_TypeIcon_Light[] =
+{
+    ANIMCMD_FRAME(TYPE_ICON_1_FRAME(TYPE_LIGHT), 0),
+    ANIMCMD_END
+};
+
 const union AnimCmd *const sSpriteAnimTable_TypeIcons[] =
 {
     [TYPE_NONE] =       sSpriteAnim_TypeIcon_Mystery,
@@ -184,6 +190,7 @@ const union AnimCmd *const sSpriteAnimTable_TypeIcons[] =
     [TYPE_FAIRY] =      sSpriteAnim_TypeIcon_Fairy,
     [TYPE_STELLAR] =    sSpriteAnim_TypeIcon_Mystery,
     [TYPE_COSMIC] = sSpriteAnim_TypeIcon_Cosmic,
+    [TYPE_LIGHT] = sSpriteAnim_TypeIcon_Light,
 };
 
 const struct SpritePalette sTypeIconPal1 =
