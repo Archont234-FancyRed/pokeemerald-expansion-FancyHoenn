@@ -454,20 +454,6 @@ static enum FieldEffectOutcome BenefitsFromCosmicTerrain(enum BattlerId battler)
     if (DoesAbilityBenefitFromFieldStatus(gAiLogicData->abilities[battler], STATUS_FIELD_COSMIC_TERRAIN))
         return FIELD_EFFECT_POSITIVE;
 
-    /*for (int i = 0; i < 4; i++)
-    {
-        gBattleMons[i].volatiles.telekinesis = TRUE;
-        gBattleMons[i].volatiles.telekinesisCosmicTerrainTimer = B_TERRAIN_TIMER;
-    }*/
-
-   /* if (gBattleMons[battlerDef].volatiles.telekinesis
-        || gBattleMons[battlerDef].volatiles.root
-        || gBattleMons[battlerDef].volatiles.smackDown
-        || gFieldStatuses & STATUS_FIELD_GRAVITY
-        || aiData->holdEffects[battlerDef] == HOLD_EFFECT_IRON_BALL
-        || IsTelekinesisBannedSpecies(gBattleMons[battlerDef].species)
-        || PartnerMoveIsSameAsAttacker(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))*/
-
     if (HasBattlerTerrainBoostMove(battler, STATUS_FIELD_COSMIC_TERRAIN)
         || HasBattlerTerrainBoostMove(BATTLE_PARTNER(battler), STATUS_FIELD_COSMIC_TERRAIN))
         return FIELD_EFFECT_POSITIVE;
