@@ -1733,8 +1733,6 @@ BattleScript_AttackAccUpTryAcc::
 BattleScript_AttackAccUpEnd:
 	goto BattleScript_MoveEnd
 
-BattleScript_EffectCosmicTerrain::
-settelekinesis BattleScript_ButItFailed
 BattleScript_EffectMistyTerrain::
 BattleScript_EffectGrassyTerrain::
 BattleScript_EffectElectricTerrain::
@@ -1747,6 +1745,18 @@ BattleScript_EffectPsychicTerrain::
 	waitmessage B_WAIT_TIME_LONG
 	playanimation BS_ATTACKER, B_ANIM_RESTORE_BG
 	call BattleScript_ActivateTerrainEffects
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectCosmicTerrain::
+	attackcanceler
+	setterrain BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printfromtable gTerrainStringIds
+	waitmessage B_WAIT_TIME_LONG
+	playanimation BS_ATTACKER, B_ANIM_RESTORE_BG
+	call BattleScript_ActivateTerrainEffects
+	settelekinesis BattleScript_ButItFailed
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectTopsyTurvy::

@@ -11460,7 +11460,7 @@ static void Cmd_settelekinesis(void)
 
     if(gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
     {
-        for (int i = 0; i < 4; i++)
+        for (enum BattlerId i = 0; i < gBattlersCount; i++)
         {
             if (gBattleMons[i].volatiles.telekinesis
                 || gBattleMons[i].volatiles.root
@@ -12272,6 +12272,7 @@ void BS_SetTerrain(void)
             statusFlag = STATUS_FIELD_GRASSY_TERRAIN;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_GRASSY;
         }
+        break;
     case EFFECT_COSMIC_TERRAIN:
         if (!(gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN))
         {
