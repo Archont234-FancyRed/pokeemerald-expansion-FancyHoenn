@@ -70,6 +70,14 @@ const struct SpriteTemplate gSandAttackDirtSpriteTemplate =
     .callback = AnimDirtScatter,
 };
 
+const struct SpriteTemplate gCosmicDustSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_COSMIC_DUST,
+    .paletteTag = ANIM_TAG_COSMIC_DUST,
+    .oam = &gOamData_AffineOff_ObjNormal_8x8,
+    .callback = AnimDirtScatter,
+};
+
 static const union AnimCmd sAnim_MudSlapMud[] =
 {
     ANIMCMD_FRAME(1, 1),

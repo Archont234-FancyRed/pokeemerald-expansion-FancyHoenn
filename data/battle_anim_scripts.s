@@ -14418,6 +14418,28 @@ gBattleAnimMove_FreezingGlare::
 	call UnsetPsychicBg
 	end
 
+gBattleAnimMove_CosmicDust::
+	simple_palette_blend selector=F_PAL_BG, delay=0, initial_blend_y=0, target_blend_y=7, color=RGB(0, 128, 25)
+	playsewithpan SE_M_SAND_ATTACK, SOUND_PAN_ATTACKER
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, ANIM_ATTACKER, -10, 0, 0, 3
+	waitforvisualfinish
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, 2
+	call CosmicDustDust
+	call CosmicDustDust
+call CosmicDustDust
+call CosmicDustDust
+call CosmicDustDust
+create_random_pos_hitsplat_sprite ANIM_TARGET, 3, relative_to=ANIM_TARGET, animation=2
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, SE_M_HYPER_BEAM, SOUND_PAN_TARGET
+	delay 3
+	create_random_pos_hitsplat_sprite ANIM_TARGET, 3, relative_to=ANIM_TARGET, animation=2
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, SE_M_HYPER_BEAM, SOUND_PAN_TARGET
+	delay 3
+	create_random_pos_hitsplat_sprite ANIM_TARGET, 3, relative_to=ANIM_TARGET, animation=2
+	waitforvisualfinish
+simple_palette_blend selector=F_PAL_BG, delay=1, initial_blend_y=7, target_blend_y=0, color=RGB(0, 25, 28)
+clearmonbg ANIM_DEF_PARTNER
+	end
 
 gBattleAnimMove_FieryWrath::
 	monbg ANIM_DEF_PARTNER
@@ -24090,6 +24112,16 @@ MudSlapMud:
 	createsprite gMudSlapMudSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, -10, -5
 	createsprite gMudSlapMudSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, 20, 10
 	createsprite gMudSlapMudSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, -20, -10
+	delay 2
+	return
+
+CosmicDustDust:
+	createsprite gCosmicDustSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, 0, 0
+	createsprite gCosmicDustSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, 0, 0
+	createsprite gCosmicDustSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, 10, 10
+	createsprite gCosmicDustSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, -10, -10
+	createsprite gCosmicDustSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, 20, 5
+	createsprite gCosmicDustSpriteTemplate, ANIM_TARGET, 2, 15, 15, 20, -20, -5
 	delay 2
 	return
 

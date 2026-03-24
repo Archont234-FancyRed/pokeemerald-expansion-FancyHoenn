@@ -15060,6 +15060,32 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_CosmicTerrain,
     },
 
+        [MOVE_COSMIC_DUST] =
+    {
+        .name = COMPOUND_STRING("Cosmic Dust"),
+        .description = COMPOUND_STRING(
+            "Hurls cosmic dust at the foe\n"
+            "to reduce its speed."),
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_COSMIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 50,
+        }),
+        .contestEffect = C_UPDATED_MOVE_EFFECTS >= GEN_6 ? CONTEST_EFFECT_WORSEN_CONDITION_OF_PREV_MONS : CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        .contestCategory = CONTEST_CATEGORY_CUTE,
+        .contestComboStarterId = COMBO_STARTER_MUD_SLAP,
+        .contestComboMoves = {COMBO_STARTER_MUD_SPORT, COMBO_STARTER_SAND_ATTACK, COMBO_STARTER_SANDSTORM},
+        .battleAnimScript = gBattleAnimMove_CosmicDust,
+        .validApprenticeMove = TRUE,
+    },
+
     [MOVE_MISTY_TERRAIN] =
     {
         .name = COMPOUND_STRING("Misty Terrain"),

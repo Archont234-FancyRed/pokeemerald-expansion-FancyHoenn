@@ -373,6 +373,10 @@ $(BTLANMSPRGFXDIR)/mud_sand.4bpp: $(BTLANMSPRGFXDIR)/mud_sand_0.4bpp \
                                   $(BTLANMSPRGFXDIR)/mud_sand_1.4bpp
 	@cat $^ >$@
 
+$(BTLANMSPRGFXDIR)/cosmic_dust.4bpp: $(BTLANMSPRGFXDIR)/cosmic_dust.4bpp \
+                                  $(BTLANMSPRGFXDIR)/mud_sand_1.4bpp
+	@cat $^ >$@
+
 $(BTLANMSPRGFXDIR)/flower.4bpp: $(BTLANMSPRGFXDIR)/flower_0.4bpp \
                                 $(BTLANMSPRGFXDIR)/flower_1.4bpp
 	@cat $^ >$@
