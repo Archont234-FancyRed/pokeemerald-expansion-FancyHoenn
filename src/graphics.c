@@ -875,6 +875,9 @@ const u16 gBattleAnimSpritePal_BrownOrb[] = INCBIN_U16("graphics/battle_anims/sp
 const u32 gBattleAnimSpriteGfx_MudSand[] = INCBIN_U32("graphics/battle_anims/sprites/mud_sand.4bpp.smol");
 const u16 gBattleAnimSpritePal_MudSand[] = INCBIN_U16("graphics/battle_anims/sprites/mud_sand.gbapal");
 
+const u32 gBattleAnimSpriteGfx_CosmicDust[] = INCBIN_U32("graphics/battle_anims/sprites/Cosmic_Dust.4bpp.smol");
+const u16 gBattleAnimSpritePal_CosmicDust[] = INCBIN_U16("graphics/battle_anims/sprites/Cosmic_Dust.gbapal");
+
 const u32 gBattleAnimSpriteGfx_PoisonBubble[] = INCBIN_U32("graphics/battle_anims/sprites/poison_bubble.4bpp.smol");
 const u16 gBattleAnimSpritePal_PoisonBubble[] = INCBIN_U16("graphics/battle_anims/sprites/poison_bubble.gbapal");
 
