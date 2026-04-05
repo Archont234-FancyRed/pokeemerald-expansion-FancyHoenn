@@ -15204,6 +15204,31 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_Moonblast,
     },
 
+    [MOVE_COSMICBLAST] =
+    {
+        .name = COMPOUND_STRING("Cosmic Blast"),
+        .description = COMPOUND_STRING(
+            "Attacks with the power of\n"
+            "the moon. May lower Sp. Atk."),
+        .effect = EFFECT_HIT,
+        .power = 95,
+        .type = TYPE_FAIRY,
+        .accuracy = 100,
+        .pp = 15,
+        .target = TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_1,
+            .chance = 30,
+        }),
+        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        .contestCategory = CONTEST_CATEGORY_BEAUTY,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Cosmicblast,
+    },
+
     [MOVE_BOOMBURST] =
     {
         .name = COMPOUND_STRING("Boomburst"),

@@ -375,6 +375,15 @@ const struct SpriteTemplate gAuraSphereBlast =
     .callback = AnimSuperpowerFireball,
 };
 
+const struct SpriteTemplate gCosmicBlast =
+{
+    .tileTag = ANIM_TAG_COSMIC_BLAST,
+    .paletteTag = ANIM_TAG_COSMIC_BLAST,
+    .oam = &gOamData_AffineNormal_ObjNormal_32x32,
+    .affineAnims = gAffineAnims_ShadowBall,
+    .callback = AnimSuperpowerFireball,
+};
+
 const union AffineAnimCmd gForcePalmAffineAnimCmd_1[] =
 {
     AFFINEANIMCMD_FRAME(0x0, 0x0, 0, 8),
@@ -937,7 +946,7 @@ void AnimSuperpowerFireball(struct Sprite *sprite)
     else if (IsOnPlayerSide(battler))
         sprite->oam.matrixNum |= (ST_OAM_HFLIP | ST_OAM_VFLIP);
 
-    sprite->data[0] = 16;
+    sprite->data[0] = 30;
     sprite->data[1] = sprite->x;
     sprite->data[2] = GetBattlerSpriteCoord(battler, BATTLER_COORD_X_2);
     sprite->data[3] = sprite->y;
