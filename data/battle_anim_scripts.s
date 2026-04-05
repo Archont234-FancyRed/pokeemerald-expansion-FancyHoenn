@@ -7797,6 +7797,25 @@ gBattleAnimMove_Moonblast::
 	blendoff
 	end
 
+gBattleAnimMove_Cosmicblast::
+	createvisualtask SoundTask_PlaySE2WithPanning, 5, SE_M_COSMIC_POWER, 0
+	playsewithpan SE_M_COSMIC_POWER, 0
+	fadetobg BG_COSMIC
+	waitbgfadeout
+    delay 40
+	playsewithpan SE_M_STRING_SHOT, SOUND_PAN_ATTACKER
+	createsprite gCosmicBlast, ANIM_ATTACKER, 3, 0
+	delay 30
+	loopsewithpan SE_M_SUPERSONIC, SOUND_PAN_TARGET, 5, 4
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 10, 0
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, -1
+	waitbgfadein
+	waitforvisualfinish
+	end
+
 gBattleAnimMove_Boomburst::
 	invert_screen_color scenery=1 | 4 | 8 | 16
 	createvisualtask SoundTask_PlayCryWithEcho, 5, FALSE
