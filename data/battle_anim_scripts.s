@@ -8493,6 +8493,7 @@ gBattleAnimMove_Moonblast::
 	end
 
 gBattleAnimMove_Cosmicblast::
+	loadspritegfx ANIM_TAG_COSMIC_BLAST
 	createvisualtask SoundTask_PlaySE2WithPanning, 5, SE_M_COSMIC_POWER, 0
 	playsewithpan SE_M_COSMIC_POWER, 0
 	fadetobg BG_COSMIC
@@ -15669,7 +15670,8 @@ gBattleAnimMove_FreezingGlare::
 	end
 
 gBattleAnimMove_CosmicDust::
-	simple_palette_blend selector=F_PAL_BG, delay=0, initial_blend_y=0, target_blend_y=7, color=RGB(0, 128, 25)
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_COSMIC_DUST
 	playsewithpan SE_M_SAND_ATTACK, SOUND_PAN_ATTACKER
 	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, ANIM_ATTACKER, -10, 0, 0, 3
 	waitforvisualfinish
@@ -15687,7 +15689,6 @@ create_random_pos_hitsplat_sprite ANIM_TARGET, 3, relative_to=ANIM_TARGET, anima
 	delay 3
 	create_random_pos_hitsplat_sprite ANIM_TARGET, 3, relative_to=ANIM_TARGET, animation=2
 	waitforvisualfinish
-simple_palette_blend selector=F_PAL_BG, delay=1, initial_blend_y=7, target_blend_y=0, color=RGB(0, 25, 28)
 clearmonbg ANIM_DEF_PARTNER
 	end
 
