@@ -3335,6 +3335,10 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
             statusFlag = STATUS_FIELD_PSYCHIC_TERRAIN;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_PSYCHIC;
             break;
+        case MOVE_EFFECT_COSMIC_TERRAIN:
+            statusFlag = STATUS_FIELD_COSMIC_TERRAIN;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_COSMIC;
+            break;
         default:
             break;
         }

@@ -458,11 +458,6 @@ static enum FieldEffectOutcome BenefitsFromCosmicTerrain(enum BattlerId battler)
         || HasBattlerTerrainBoostMove(BATTLE_PARTNER(battler), STATUS_FIELD_COSMIC_TERRAIN))
         return FIELD_EFFECT_POSITIVE;
 
-    bool32 grounded = AI_IsBattlerGrounded(battler);
-    bool32 allyGrounded = FALSE;
-    if (HasPartner(battler))
-        allyGrounded = AI_IsBattlerGrounded(BATTLE_PARTNER(battler));
-
     if (HasDamagingMoveOfType(battler, TYPE_COSMIC))
         return FIELD_EFFECT_POSITIVE;
 
