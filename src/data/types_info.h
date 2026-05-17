@@ -457,7 +457,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .paletteTMHM = gItemIconPalette_FairyTMHM,
         .useSecondTypeIconPalette = TRUE,
         .isSpecialCaseType = FALSE,
-        .isHiddenPowerType = FALSE,
+        .isHiddenPowerType = TRUE,
         //.enhanceItem = ITEM_FAIRY_FEATHER,
         //.berry = ITEM_ROSELI_BERRY,
         //.gem = ITEM_FAIRY_GEM,
@@ -493,7 +493,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .paletteTMHM = gItemIconPalette_NormalTMHM, // failsafe
         .useSecondTypeIconPalette = FALSE,
         .isSpecialCaseType = TRUE,
-        .isHiddenPowerType = FALSE,
+        .isHiddenPowerType = TRUE,
         // .teraShard = ITEM_STELLAR_TERA_SHARD,
     },
 
@@ -508,7 +508,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
         .paletteTMHM = gItemIconPalette_NormalTMHM, // failsafe
         .useSecondTypeIconPalette = FALSE,
         .isSpecialCaseType = TRUE,
-        .isHiddenPowerType = FALSE,
+        .isHiddenPowerType = TRUE,
         // .teraShard = ITEM_STELLAR_TERA_SHARD,
     },
 };
