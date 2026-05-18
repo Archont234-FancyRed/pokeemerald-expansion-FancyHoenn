@@ -875,19 +875,14 @@ const u16 gBattleAnimSpritePal_BrownOrb[] = INCGFX_U16("graphics/battle_anims/sp
 const u32 gBattleAnimSpriteGfx_MudSand[] = INCGFX_U32("graphics/battle_anims/sprites/mud_sand.4bpp", ".smol");
 const u16 gBattleAnimSpritePal_MudSand[] = INCGFX_U16("graphics/battle_anims/sprites/mud_sand.pal", ".gbapal");
 
-<<<<<<< HEAD
-const u32 gBattleAnimSpriteGfx_CosmicDust[] = INCBIN_U32("graphics/battle_anims/sprites/Cosmic_Dust.4bpp.smol");
-const u16 gBattleAnimSpritePal_CosmicDust[] = INCBIN_U16("graphics/battle_anims/sprites/Cosmic_Dust.gbapal");
+const u32 gBattleAnimSpriteGfx_CosmicDust[] = INCGFX_U32("graphics/battle_anims/sprites/Cosmic_Dust.4bpp", ".smol");
+const u16 gBattleAnimSpritePal_CosmicDust[] = INCGFX_U16("graphics/battle_anims/sprites/Cosmic_Dust.pal", ".gbapal");
 
-const u32 gBattleAnimSpriteGfx_CosmicBlast[] = INCBIN_U32("graphics/battle_anims/sprites/Cosmic_Blast.4bpp.smol");
-const u16 gBattleAnimSpritePal_CosmicBlast[] = INCBIN_U16("graphics/battle_anims/sprites/Cosmic_Blast.gbapal");
+const u32 gBattleAnimSpriteGfx_CosmicBlast[] = INCGFX_U32("graphics/battle_anims/sprites/Cosmic_Blast.4bpp", ".smol");
+const u16 gBattleAnimSpritePal_CosmicBlast[] = INCGFX_U16("graphics/battle_anims/sprites/Cosmic_Blast.pal", ".gbapal");
 
-const u32 gBattleAnimSpriteGfx_PoisonBubble[] = INCBIN_U32("graphics/battle_anims/sprites/poison_bubble.4bpp.smol");
-const u16 gBattleAnimSpritePal_PoisonBubble[] = INCBIN_U16("graphics/battle_anims/sprites/poison_bubble.gbapal");
-=======
 const u32 gBattleAnimSpriteGfx_PoisonBubble[] = INCGFX_U32("graphics/battle_anims/sprites/poison_bubble.png", ".4bpp.smol");
 const u16 gBattleAnimSpritePal_PoisonBubble[] = INCGFX_U16("graphics/battle_anims/sprites/poison_bubble.png", ".gbapal");
->>>>>>> upstream/master
 
 const u32 gBattleAnimSpriteGfx_ToxicBubble[] = INCGFX_U32("graphics/battle_anims/sprites/toxic_bubble.png", ".4bpp.smol");
 
@@ -1570,8 +1565,8 @@ const u32 gBattleAnimBgImage_MistyTerrain[] = INCGFX_U32("graphics/battle_anims/
 const u16 gBattleAnimBgPalette_MistyTerrain[] = INCGFX_U16("graphics/battle_anims/backgrounds/misty_terrain.pal", ".gbapal");
 const u32 gBattleAnimBgTilemap_MistyTerrain[] = INCBIN_U32("graphics/battle_anims/backgrounds/misty_terrain.bin.smolTM");
 
-const u32 gBattleAnimBgImage_CosmicTerrain[] = INCBIN_U32("graphics/battle_anims/backgrounds/new_cosmic_terrain.4bpp.smol");
-const u16 gBattleAnimBgPalette_CosmicTerrain[] = INCBIN_U16("graphics/battle_anims/backgrounds/new_cosmic_terrain.gbapal");
+const u32 gBattleAnimBgImage_CosmicTerrain[] = INCGFX_U32("graphics/battle_anims/backgrounds/new_cosmic_terrain.png", ".4bpp.smol");
+const u16 gBattleAnimBgPalette_CosmicTerrain[] = INCGFX_U16("graphics/battle_anims/backgrounds/new_cosmic_terrain.pal", ".gbapal");
 const u32 gBattleAnimBgTilemap_CosmicTerrain[] = INCBIN_U32("graphics/battle_anims/backgrounds/new_cosmic_terrain.bin.smolTM");
 #endif
 
