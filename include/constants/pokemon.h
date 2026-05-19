@@ -27,6 +27,7 @@ enum __attribute__((packed)) Type
     TYPE_STELLAR = 20,
     TYPE_COSMIC = 21,
     TYPE_LIGHT = 22,
+    TYPE_SOUND = 23,
     NUMBER_OF_MON_TYPES
 };
 

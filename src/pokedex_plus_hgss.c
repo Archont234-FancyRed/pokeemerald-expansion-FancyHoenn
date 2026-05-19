@@ -1882,6 +1882,7 @@ static const struct SearchOptionText sDexSearchTypeOptions[] =
     {gText_DexEmptyString, gTypesInfo[TYPE_FAIRY].name},
     {gText_DexEmptyString, gTypesInfo[TYPE_COSMIC].name},
     {gText_DexEmptyString, gTypesInfo[TYPE_LIGHT].name},
+    {gText_DexEmptyString, gTypesInfo[TYPE_SOUND].name},
     {},
 };
 
