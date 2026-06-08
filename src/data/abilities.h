@@ -2432,11 +2432,58 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
-
     [ABILITY_COSMIC_SURGE] =
     {
         .name = _("Cosmic Surge"),
         .description = COMPOUND_STRING("Field becomes Cosmic."),
         .aiRating = 8,
+    },
+
+    [ABILITY_PIERCING_DRILL] =
+    {
+        .name = _("Piercing Drill"),
+        .description = COMPOUND_STRING("Contact evades protection."),
+    },
+
+    [ABILITY_DRAGONIZE] =
+    {
+        .name = _("Dragonize"),
+        .description = COMPOUND_STRING("Normal moves turn Dragon."),
+    },
+
+    [ABILITY_313] =
+    {
+        .name = _("-------"),
+        .description = COMPOUND_STRING("No special ability."),
+    },
+
+    [ABILITY_314] =
+    {
+        .name = _("-------"),
+        .description = COMPOUND_STRING("No special ability."),
+    },
+
+    [ABILITY_MEGA_SOL] =
+    {
+        .name = _("Mega Sol"),
+        .description = COMPOUND_STRING("Acts like under sun."),
+    },
+
+    [ABILITY_316] =
+    {
+        .name = _("-------"),
+        .description = COMPOUND_STRING("No special ability."),
+    },
+
+    [ABILITY_317] =
+    {
+        .name = _("-------"),
+        .description = COMPOUND_STRING("No special ability."),
+    },
+
+    [ABILITY_SPICY_SPRAY] =
+    {
+        .name = _("Spicy Spray"),
+        .description = COMPOUND_STRING("Burns the foe when damaged."),
     },
 };
