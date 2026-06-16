@@ -343,6 +343,7 @@ void AnimOrbitFast(struct Sprite *sprite);
 void AnimOrbitScatter(struct Sprite *sprite);
 void AnimAngerMark(struct Sprite *sprite);
 void AnimHyperVoiceRing(struct Sprite *sprite);
+void AnimBassRing(struct Sprite* sprite);
 void AnimMagentaHeart(struct Sprite *);
 extern const union AffineAnimCmd *const gThinRingShrinkingAffineAnimTable[];
 extern const union AffineAnimCmd *const gThinRingExpandingAffineAnimTable[];

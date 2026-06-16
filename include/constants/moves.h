@@ -906,6 +906,7 @@ enum __attribute__((packed)) Move
     MOVE_COSMIC_TERRAIN = 848,
     MOVE_COSMIC_DUST = 849,
     MOVE_COSMICBLAST = 850,
+    MOVE_BASSSLAP = 851,
     MOVES_COUNT_GEN9,
 
     // Add any custom moves here, not further down!

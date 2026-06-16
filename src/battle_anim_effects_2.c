@@ -728,6 +728,15 @@ const struct SpriteTemplate gHyperVoiceRingSpriteTemplate =
     .callback = AnimHyperVoiceRing,
 };
 
+const struct SpriteTemplate gBassRingSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_THIN_RING,
+    .paletteTag = ANIM_TAG_THIN_RING,
+    .oam = &gOamData_AffineDouble_ObjBlend_64x64,
+    .affineAnims = gHyperVoiceRingAffineAnimTable,
+    .callback = AnimBassRing,
+};
+
 const struct SpriteTemplate gUproarRingSpriteTemplate =
 {
     .tileTag = ANIM_TAG_THIN_RING,
@@ -2615,6 +2624,91 @@ void AnimHyperVoiceRing(struct Sprite *sprite)
     sprite->x = sprite->data[1] = startX;
     sprite->y = sprite->data[3] = startY;
     sprite->data[2] = x;
+    sprite->data[4] = y;
+    sprite->data[0] = gBattleAnimArgs[0];
+    InitAnimLinearTranslation(sprite);
+    sprite->callback = AnimHyperVoiceRing_WaitEnd;
+    sprite->callback(sprite);
+}
+
+void AnimBassRing(struct Sprite* sprite)
+{
+    u16 startX = 0;
+    u16 startY = 0;
+    s16 x = 0;
+    s16 y = 0;
+    u8 yCoordType;
+    enum BattlerId battler1;
+    enum BattlerId battler2;
+    u8 xCoordType;
+
+    if (gBattleAnimArgs[5] == 0)
+    {
+        battler1 = gBattleAnimAttacker;
+        battler2 = gBattleAnimTarget;
+    }
+    else
+    {
+        battler1 = gBattleAnimTarget;
+        battler2 = gBattleAnimAttacker;
+    }
+
+    if (!gBattleAnimArgs[6])
+    {
+        xCoordType = BATTLER_COORD_X;
+        yCoordType = BATTLER_COORD_Y;
+    }
+    else
+    {
+        xCoordType = BATTLER_COORD_X_2;
+        yCoordType = BATTLER_COORD_Y_PIC_OFFSET;
+    }
+
+    if (!IsOnPlayerSide(battler1))
+    {
+        startX = GetBattlerSpriteCoord(battler1, xCoordType) + gBattleAnimArgs[0];
+        if (IsBattlerSpriteVisible(BATTLE_PARTNER(battler2)))
+            sprite->subpriority = gSprites[gBattlerSpriteIds[BATTLE_PARTNER(battler2)]].subpriority - 1;
+        else
+            sprite->subpriority = gSprites[gBattlerSpriteIds[battler2]].subpriority - 1;
+    }
+    else
+    {
+        startX = GetBattlerSpriteCoord(battler1, xCoordType) - gBattleAnimArgs[0];
+        if (!IsContest() && IsBattlerSpriteVisible(BATTLE_PARTNER(battler1)))
+        {
+            if (gSprites[gBattlerSpriteIds[battler1]].x < gSprites[gBattlerSpriteIds[BATTLE_PARTNER(battler1)]].x)
+                sprite->subpriority = gSprites[gBattlerSpriteIds[BATTLE_PARTNER(battler1)]].subpriority + 1;
+            else
+                sprite->subpriority = gSprites[gBattlerSpriteIds[battler1]].subpriority - 1;
+        }
+        else
+        {
+            sprite->subpriority = gSprites[gBattlerSpriteIds[battler1]].subpriority - 1;
+        }
+
+    }
+
+    startY = GetBattlerSpriteCoord(battler1, yCoordType) + gBattleAnimArgs[1];
+    if (!IsContest() && IsBattlerSpriteVisible(BATTLE_PARTNER(battler2)))
+    {
+        SetAverageBattlerPositions(battler2, gBattleAnimArgs[6], &x, &y);
+    }
+    else
+    {
+        x = GetBattlerSpriteCoord(battler2, xCoordType);
+        y = GetBattlerSpriteCoord(battler2, yCoordType);
+    }
+
+    //if (!IsOnPlayerSide(battler2))
+    //    x += gBattleAnimArgs[3];
+    //else
+    //    x -= gBattleAnimArgs[3];
+
+    y += gBattleAnimArgs[4];
+    /*sprite->x = sprite->data[1] = startX;*/
+    sprite->y = sprite->data[3] = startY;
+    /*sprite->data[2] = x;*/
     sprite->data[4] = y;
     sprite->data[0] = gBattleAnimArgs[0];
     InitAnimLinearTranslation(sprite);

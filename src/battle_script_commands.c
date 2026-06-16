@@ -2776,7 +2776,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
                     statDown = TRUE;
                     break;
                 case STATUS_FIELD_COSMIC_TERRAIN:
-                    moveEffect = MOVE_EFFECT_SPD_MINUS_1;
+                    SetStatChange(effectBattler, STAT_SPEED, -1);
                     break;
                 default:
                     moveEffect = MOVE_EFFECT_PARALYSIS;

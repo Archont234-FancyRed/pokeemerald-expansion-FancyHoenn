@@ -7571,9 +7571,27 @@ gBattleAnimMove_GrassyTerrain::
 	waitforvisualfinish
 	end
 
+gBattleAnimMove_BassSlap::
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_TARGET
+	createsprite gKarateChopSpriteTemplate, ANIM_ATTACKER, 2, -16, 0, 0, 0, 10, 1, 3, 0
+	waitforvisualfinish
+	playsewithpan SE_M_DOUBLE_SLAP, SOUND_PAN_TARGET
+	create_basic_hitsplat_sprite ANIM_ATTACKER, 3, x=0, y=0, relative_to=ANIM_TARGET, animation=2
+	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 4, 0, 6, 2
+	waitforvisualfinish
+	loopsewithpan SE_M_BELLY_DRUM, SOUND_PAN_TARGET, 3, 5
+	createsprite gBassRingSpriteTemplate, ANIM_TARGET, 0, 45, -25, 30,-30,-30
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
 gBattleAnimMove_CosmicTerrain::
-	loadspritegfx ANIM_TAG_ORBS @Recover Ball
-	loadspritegfx ANIM_TAG_GREEN_SPARKLE @Green Star
+	unloadspritegfx ANIM_TAG_ORBS @Recover Ball
+	unloadspritegfx ANIM_TAG_GREEN_SPARKLE @Green Star
 	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_ScaleMonAndRestore, 5, -7, -7, 11, ANIM_ATTACKER, 0
 	waitforvisualfinish
@@ -7800,7 +7818,7 @@ gBattleAnimMove_Moonblast::
 	end
 
 gBattleAnimMove_Cosmicblast::
-	loadspritegfx ANIM_TAG_COSMIC_BLAST
+	unloadspritegfx ANIM_TAG_COSMIC_BLAST
 	createvisualtask SoundTask_PlaySE2WithPanning, 5, SE_M_COSMIC_POWER, 0
 	playsewithpan SE_M_COSMIC_POWER, 0
 	fadetobg BG_COSMIC
@@ -14442,8 +14460,8 @@ gBattleAnimMove_FreezingGlare::
 	end
 
 gBattleAnimMove_CosmicDust::
-	loadspritegfx ANIM_TAG_IMPACT
-	loadspritegfx ANIM_TAG_COSMIC_DUST
+	unloadspritegfx ANIM_TAG_IMPACT
+	unloadspritegfx ANIM_TAG_COSMIC_DUST
 	playsewithpan SE_M_SAND_ATTACK, SOUND_PAN_ATTACKER
 	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, ANIM_ATTACKER, -10, 0, 0, 3
 	waitforvisualfinish
