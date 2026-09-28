@@ -2122,3 +2122,8 @@
 	.macro trydomoveeffectsbeforemoves
 	callnative BS_TryDoMoveEffectsBeforeMoves
 	.endm
+
+	.macro settelekinesiscosmicterrain failInstr:req
+	.byte B_SCR_OP_SETTELEKINESIS_COSMICTERRAIN
+	.4byte \failInstr
+	.endm

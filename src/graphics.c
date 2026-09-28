@@ -1567,9 +1567,10 @@ const u32 gBattleAnimBgTilemap_GrassyTerrain[] = INCGFX_U32("graphics/battle_ani
 const u32 gBattleAnimBgImage_MistyTerrain[] = INCGFX_U32("graphics/battle_anims/backgrounds/misty_terrain.png", ".4bpp.smol");
 const u16 gBattleAnimBgPalette_MistyTerrain[] = INCGFX_U16("graphics/battle_anims/backgrounds/misty_terrain.pal", ".gbapal");
 const u32 gBattleAnimBgTilemap_MistyTerrain[] = INCGFX_U32("graphics/battle_anims/backgrounds/misty_terrain.bin", ".smolTM");
+
 const u32 gBattleAnimBgImage_CosmicTerrain[] = INCGFX_U32("graphics/battle_anims/backgrounds/new_cosmic_terrain.png", ".4bpp.smol");
 const u16 gBattleAnimBgPalette_CosmicTerrain[] = INCGFX_U16("graphics/battle_anims/backgrounds/new_cosmic_terrain.pal", ".gbapal");
-const u32 gBattleAnimBgTilemap_CosmicTerrain[] = INCBIN_U32("graphics/battle_anims/backgrounds/new_cosmic_terrain.bin.smolTM");
+const u32 gBattleAnimBgTilemap_CosmicTerrain[] = INCGFX_U32("graphics/battle_anims/backgrounds/new_cosmic_terrain.bin", ".smolTM");
 #endif
 
 const u32 gBattleAnimBgImage_Nightmare[] = INCGFX_U32("graphics/battle_anims/backgrounds/nightmare.png", ".4bpp.smol");

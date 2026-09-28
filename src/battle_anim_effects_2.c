@@ -2665,18 +2665,18 @@ void AnimBassRing(struct Sprite* sprite)
     if (!IsOnPlayerSide(battler1))
     {
         startX = GetBattlerSpriteCoord(battler1, xCoordType) + gBattleAnimArgs[0];
-        if (IsBattlerSpriteVisible(BATTLE_PARTNER(battler2)))
-            sprite->subpriority = gSprites[gBattlerSpriteIds[BATTLE_PARTNER(battler2)]].subpriority - 1;
+        if (IsBattlerSpriteVisible(GetPartnerBattler(battler2)))
+            sprite->subpriority = gSprites[gBattlerSpriteIds[GetPartnerBattler(battler2)]].subpriority - 1;
         else
             sprite->subpriority = gSprites[gBattlerSpriteIds[battler2]].subpriority - 1;
     }
     else
     {
         startX = GetBattlerSpriteCoord(battler1, xCoordType) - gBattleAnimArgs[0];
-        if (!IsContest() && IsBattlerSpriteVisible(BATTLE_PARTNER(battler1)))
+        if (!IsContest() && IsBattlerSpriteVisible(GetPartnerBattler(battler1)))
         {
-            if (gSprites[gBattlerSpriteIds[battler1]].x < gSprites[gBattlerSpriteIds[BATTLE_PARTNER(battler1)]].x)
-                sprite->subpriority = gSprites[gBattlerSpriteIds[BATTLE_PARTNER(battler1)]].subpriority + 1;
+            if (gSprites[gBattlerSpriteIds[battler1]].x < gSprites[gBattlerSpriteIds[GetPartnerBattler(battler1)]].x)
+                sprite->subpriority = gSprites[gBattlerSpriteIds[GetPartnerBattler(battler1)]].subpriority + 1;
             else
                 sprite->subpriority = gSprites[gBattlerSpriteIds[battler1]].subpriority - 1;
         }
@@ -2688,7 +2688,7 @@ void AnimBassRing(struct Sprite* sprite)
     }
 
     startY = GetBattlerSpriteCoord(battler1, yCoordType) + gBattleAnimArgs[1];
-    if (!IsContest() && IsBattlerSpriteVisible(BATTLE_PARTNER(battler2)))
+    if (!IsContest() && IsBattlerSpriteVisible(GetPartnerBattler(battler2)))
     {
         SetAverageBattlerPositions(battler2, gBattleAnimArgs[6], &x, &y);
     }

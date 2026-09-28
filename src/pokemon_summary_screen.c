@@ -4433,7 +4433,7 @@ static void SetMoveTypeIcons(void)
                 }
                 enum Type moveType = 0;
                 moveType = ((hpTypeCount - 1) * typeBits) / 63;
-                SetTypeSpritePosAndPal((hpTypes[moveType] | F_DYNAMIC_TYPE_IGNORE_PHYSICALITY) & 0x3F, 85, 32 + (i * 16), i + SPRITE_ARR_ID_TYPE);
+                SetTypeSpritePosAndPal((hpTypes[moveType]) & 0x3F, 85, 32 + (i * 16), i + SPRITE_ARR_ID_TYPE);
             }
             else {
                 SetTypeSpritePosAndPal(gMovesInfo[summary->moves[i]].type, 85, 32 + (i * 16), i + SPRITE_ARR_ID_TYPE);

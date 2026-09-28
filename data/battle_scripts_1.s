@@ -1030,6 +1030,7 @@ BattleScript_EffectTerrain::
 	waitmessage B_WAIT_TIME_LONG
 	playanimation BS_ATTACKER, B_ANIM_RESTORE_BG
 	call BattleScript_ActivateTerrainEffects
+	settelekinesiscosmicterrain BattleScript_ButItFailed
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectCosmicTerrain::

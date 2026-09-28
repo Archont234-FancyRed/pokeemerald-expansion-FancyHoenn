@@ -15525,7 +15525,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .description = COMPOUND_STRING(
             "The ground turns to cosmic\n"
             "for 5 turns. Weakens gravity."),
-        .effect = EFFECT_COSMIC_TERRAIN,
+        .effect = EFFECT_TERRAIN,
         .power = 0,
         .type = TYPE_COSMIC,
         .accuracy = 0,
@@ -15533,6 +15533,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .target = TARGET_FIELD,
         .priority = 0,
         .category = DAMAGE_CATEGORY_STATUS,
+        .argument = {.terrainType = B_TERRAIN_COSMIC },
         .zMove = {.effect = Z_EFFECT_DEF_UP_1 },
         .ignoresProtect = TRUE,
         .mirrorMoveBanned = TRUE,

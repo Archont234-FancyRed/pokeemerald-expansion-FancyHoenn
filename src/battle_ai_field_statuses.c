@@ -117,6 +117,9 @@ bool32 TerrainChecker(enum BattlerId battler, enum BattleTerrain terrain, enum F
         case B_TERRAIN_PSYCHIC:
             result = BenefitsFromPsychicTerrain(battlerIndex);
             break;
+        case B_TERRAIN_COSMIC:
+            result = BenefitsFromCosmicTerrain(battlerIndex);
+            break;
         default:
             break;
         }
@@ -466,19 +469,14 @@ static enum FieldEffectOutcome BenefitsFromPsychicTerrain(enum BattlerId battler
 
 static enum FieldEffectOutcome BenefitsFromCosmicTerrain(enum BattlerId battler)
 {
-    if (DoesAbilityBenefitFromFieldStatus(gAiLogicData->abilities[battler], STATUS_FIELD_COSMIC_TERRAIN))
+    if (DoesAbilityBenefitFromTerrain(gAiLogicData->abilities[battler], B_TERRAIN_COSMIC))
         return FIELD_EFFECT_POSITIVE;
 
-    if (HasBattlerTerrainBoostMove(battler, STATUS_FIELD_COSMIC_TERRAIN)
-        || HasBattlerTerrainBoostMove(BATTLE_PARTNER(battler), STATUS_FIELD_COSMIC_TERRAIN))
+    if (HasBattlerTerrainBoostMove(battler, B_TERRAIN_COSMIC))
         return FIELD_EFFECT_POSITIVE;
 
     if (HasDamagingMoveOfType(battler, TYPE_COSMIC))
         return FIELD_EFFECT_POSITIVE;
-
-    if (HasBattlerTerrainBoostMove(LEFT_FOE(battler), STATUS_FIELD_COSMIC_TERRAIN)
-        || HasBattlerTerrainBoostMove(RIGHT_FOE(battler), STATUS_FIELD_COSMIC_TERRAIN))
-        return FIELD_EFFECT_NEGATIVE;
 
     return FIELD_EFFECT_NEUTRAL;
 }

@@ -878,7 +878,7 @@ static bool32 HandleEndTurnTelekinesis(enum BattlerId battler)
     bool32 effect = FALSE;
 
     gBattleStruct->eventState.endTurnBattler++;
-    if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
+    if (gFieldTimers.terrain == B_TERRAIN_COSMIC)
     {
         if (gBattleMons[battler].volatiles.telekinesisCosmicTerrainTimer > 0 && --gBattleMons[battler].volatiles.telekinesisCosmicTerrainTimer == 0)
         {

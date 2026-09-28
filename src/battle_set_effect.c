@@ -976,6 +976,9 @@ static void HandleSetEffectTerrain(struct BattleCalcValues *cv, struct SetEffect
     case MOVE_EFFECT_PSYCHIC_TERRAIN:
         terrain = B_TERRAIN_PSYCHIC;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_PSYCHIC;
+    case MOVE_EFFECT_COSMIC_TERRAIN:
+        terrain = B_TERRAIN_COSMIC;
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAIN_SET_COSMIC;
         break;
     default:
         break;
@@ -1377,6 +1380,7 @@ static void (*const sSetEffectHandlers[])(struct BattleCalcValues *cv, struct Se
     [MOVE_EFFECT_GRASSY_TERRAIN] = HandleSetEffectTerrain,
     [MOVE_EFFECT_ELECTRIC_TERRAIN] = HandleSetEffectTerrain,
     [MOVE_EFFECT_PSYCHIC_TERRAIN] = HandleSetEffectTerrain,
+    [MOVE_EFFECT_COSMIC_TERRAIN] = HandleSetEffectTerrain,
     [MOVE_EFFECT_VINE_LASH] = HandleSetEffectGmaxNonTypeDamage,
     [MOVE_EFFECT_WILDFIRE] = HandleSetEffectGmaxNonTypeDamage,
     [MOVE_EFFECT_CANNONADE] = HandleSetEffectGmaxNonTypeDamage,
@@ -1490,6 +1494,7 @@ static inline bool32 IgnoreTargetingForMoveEffect(enum MoveEffect moveEffect) //
     case MOVE_EFFECT_GRASSY_TERRAIN:
     case MOVE_EFFECT_ELECTRIC_TERRAIN:
     case MOVE_EFFECT_PSYCHIC_TERRAIN:
+    case MOVE_EFFECT_COSMIC_TERRAIN:
     case MOVE_EFFECT_DEFOG:
     case MOVE_EFFECT_ION_DELUGE:
     case MOVE_EFFECT_HAZE:

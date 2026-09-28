@@ -556,6 +556,7 @@ static void Cmd_trystatchanges(void);
 static void Cmd_trybattlerstatchange(void);
 static void Cmd_jumpifterrain(void);
 static void Cmd_dummy(void);
+static void Cmd_settelekinesis_cosmicterrain(void);
 static void Cmd_callnative(void);
 
 void (*const gBattleScriptingCommandsTable[])(void) =
@@ -810,6 +811,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     [B_SCR_OP_UNUSED_40]                             = Cmd_dummy,
     [B_SCR_OP_UNUSED_41]                             = Cmd_dummy,
     [B_SCR_OP_UNUSED_42]                             = Cmd_dummy,
+    [B_SCR_OP_SETTELEKINESIS_COSMICTERRAIN]          = Cmd_settelekinesis_cosmicterrain,
     [B_SCR_OP_CALLNATIVE]                            = Cmd_callnative,
 };
 
@@ -8701,11 +8703,11 @@ bool32 IsTelekinesisBannedSpecies(enum Species species)
     return gSpeciesInfo[species].isTelekinesisBanned;
 }
 
-static void Cmd_settelekinesis(void)
+static void Cmd_settelekinesis_cosmicterrain(void)
 {
-    CMD_ARGS(const u8 *failInstr);
+    CMD_ARGS(const u8 * failInstr);
 
-    if(gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN)
+    if (gFieldTimers.terrain == B_TERRAIN_COSMIC)
     {
         for (enum BattlerId i = 0; i < gBattlersCount; i++)
         {
@@ -8726,23 +8728,49 @@ static void Cmd_settelekinesis(void)
         }
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
 
+static void Cmd_settelekinesis(void)
+{
+    CMD_ARGS(const u8 *failInstr);
+
+    //if(gFieldTimers.terrain == B_TERRAIN_COSMIC)
+    //{
+    //    for (enum BattlerId i = 0; i < gBattlersCount; i++)
+    //    {
+    //        if (gBattleMons[i].volatiles.telekinesis
+    //            || gBattleMons[i].volatiles.root
+    //            || gBattleMons[i].volatiles.smackDown
+    //            || gFieldStatuses & STATUS_FIELD_GRAVITY
+    //            || IsTelekinesisBannedSpecies(gBattleMons[i].species))
+    //        {
+    //            continue;
+    //        }
+
+    //        else
+    //        {
+    //            gBattleMons[i].volatiles.telekinesis = TRUE;
+    //            gBattleMons[i].volatiles.telekinesisCosmicTerrainTimer = B_TERRAIN_TIMER;
+    //        }
+    //    }
+    //    gBattlescriptCurrInstr = cmd->nextInstr;
+    //}
+
+    if (gBattleMons[gBattlerTarget].volatiles.telekinesis
+        || gBattleMons[gBattlerTarget].volatiles.root
+        || gBattleMons[gBattlerTarget].volatiles.smackDown
+        || gFieldStatuses & STATUS_FIELD_GRAVITY
+        || IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
     else
     {
-        if (gBattleMons[gBattlerTarget].volatiles.telekinesis
-            || gBattleMons[gBattlerTarget].volatiles.root
-            || gBattleMons[gBattlerTarget].volatiles.smackDown
-            || gFieldStatuses & STATUS_FIELD_GRAVITY
-            || IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
-        {
-            gBattlescriptCurrInstr = cmd->failInstr;
-        }
-        else
-        {
-            gBattleMons[gBattlerTarget].volatiles.telekinesis = TRUE;
-            gBattleMons[gBattlerTarget].volatiles.telekinesisTimer = B_TELEKINESIS_TIMER;
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        }
+        gBattleMons[gBattlerTarget].volatiles.telekinesis = TRUE;
+        gBattleMons[gBattlerTarget].volatiles.telekinesisTimer = B_TELEKINESIS_TIMER;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 

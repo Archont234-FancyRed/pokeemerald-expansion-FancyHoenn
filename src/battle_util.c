@@ -347,6 +347,18 @@ const struct TerrainInfo gBattleTerrainInfo[B_TERRAIN_COUNT] = {
         .startMessage = B_MSG_TERRAIN_SET_PSYCHIC,
         .endMessage = B_MSG_TERRAIN_END_PSYCHIC,
     },
+
+    [B_TERRAIN_COSMIC] = {
+        .type = TYPE_COSMIC,
+        .secretPowerAnimation = gBattleAnimMove_CosmicDust,
+        .secretPowerEffect = MOVE_EFFECT_CONFUSION,
+        .naturePowerMove = MOVE_COSMICBLAST,
+        .battleBackground = BG_COSMIC_TERRAIN,
+        .seedStat = STAT_SPEED,
+        .seedHoldEffect = HOLD_EFFECT_PARAM_COSMIC_TERRAIN,
+        .startMessage = B_MSG_TERRAIN_SET_COSMIC,
+        .endMessage = B_MSG_TERRAIN_END_COSMIC,
+    },
 };
 
 bool32 EndOrContinueWeather(void)
@@ -2630,13 +2642,10 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
         }
         else if (gStartingStatuses.cosmicTerrain || gStartingStatuses.cosmicTerrainTemporary)
         {
-            effect = SetStartingFieldStatus(
-                STATUS_FIELD_COSMIC_TERRAIN,
-                B_MSG_TERRAIN_SET_COSMIC,
-                0,
-                &gFieldTimers.terrainTimer, gStartingStatuses.cosmicTerrain ? 0 : 5);
+            effect = SetStartingFieldTerrain(B_TERRAIN_COSMIC, &gFieldTimers.terrainTimer,
+                gStartingStatuses.cosmicTerrain ? 0 : 5);
             gStartingStatuses.cosmicTerrainTemporary = gStartingStatuses.cosmicTerrain = FALSE;
-            isTerrain = TRUE;            
+            return effect;
         }
         else if (gStartingStatuses.trickRoom || gStartingStatuses.trickRoomTemporary)
         {
@@ -3404,7 +3413,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         case ABILITY_COSMIC_SURGE:
             if (!shouldAbilityTrigger)
                 break;
-            if (TryChangeBattleTerrain(battler, STATUS_FIELD_COSMIC_TERRAIN))
+            if (TryChangeBattleTerrain(battler, B_TERRAIN_COSMIC))
             {
                 BattleScriptCall(BattleScript_CosmicSurgeActivates);
                 effect++;
@@ -6927,6 +6936,9 @@ static inline u32 CalcAttackStat(struct DamageContext *ctx)
     if (ctx->abilities[ctx->battlerDef] == ABILITY_UNAWARE)
         atkStage = DEFAULT_STAT_STAGE;
 
+        //if(gFieldTimers.terrain == B_TERRAIN_COSMIC)
+        //    atkStage = DEFAULT_STAT_STAGE;
+
     atkStat *= gStatStageRatios[atkStage][0];
     atkStat /= gStatStageRatios[atkStage][1];
 
@@ -7200,6 +7212,9 @@ static inline u32 CalcDefenseStat(struct DamageContext *ctx)
     // Pokémon with unaware ignore defense stat changes while dealing damage
     if (ctx->abilities[ctx->battlerAtk] == ABILITY_UNAWARE)
         defStage = DEFAULT_STAT_STAGE;
+    //// Pokémon with unaware ignore defense stat changes while dealing damage
+    //if (gFieldTimers.terrain == B_TERRAIN_COSMIC)
+    //    defStage = DEFAULT_STAT_STAGE;
     // certain moves also ignore stat changes
     if (MoveIgnoresDefenseEvasionStages(move))
         defStage = DEFAULT_STAT_STAGE;

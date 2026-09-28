@@ -677,6 +677,7 @@ extern const u8 BattleScript_EffectQuash[];
 extern const u8 BattleScript_EffectIonDeluge[];
 extern const u8 BattleScript_EffectTopsyTurvy[];
 extern const u8 BattleScript_EffectTerrain[];
+extern const u8 BattleScript_EffectCosmicTerrain[];
 extern const u8 BattleScript_EffectElectrify[];
 extern const u8 BattleScript_EffectReflectType[];
 extern const u8 BattleScript_EffectSoak[];

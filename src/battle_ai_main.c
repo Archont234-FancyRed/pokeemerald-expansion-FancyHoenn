@@ -2672,11 +2672,6 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
          || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, GetPartnerBattler(battlerAtk), move, aiData->partnerMove)))
             ADJUST_SCORE(-10);
         break;
-    case EFFECT_COSMIC_TERRAIN:
-        if (gFieldStatuses & STATUS_FIELD_COSMIC_TERRAIN
-            || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)))
-            ADJUST_SCORE(-10);
-        break;
     case EFFECT_STEEL_ROLLER:
         if (gFieldTimers.terrain == B_TERRAIN_NONE
          || (HasPartner(battlerAtk) && AreMovesEquivalent(battlerAtk, GetPartnerBattler(battlerAtk), move, aiData->partnerMove)))
@@ -5936,13 +5931,13 @@ static s32 AI_CalcAdditionalEffectScore(enum BattlerId battlerAtk, enum BattlerI
                     ADJUST_SCORE(DECENT_EFFECT);
                 break;
             case MOVE_EFFECT_COSMIC_TERRAIN:
-                if (ShouldClearFieldStatus(battlerAtk, STATUS_FIELD_COSMIC_TERRAIN))
+                if (ShouldClearTerrain(battlerAtk, B_TERRAIN_COSMIC))
                 {
                     ADJUST_SCORE(BAD_EFFECT);
                     break;
                 }
-                if (ShouldSetFieldStatus(battlerAtk, STATUS_FIELD_COSMIC_TERRAIN)
-                    || ShouldClearFieldStatus(battlerAtk, gFieldStatuses & STATUS_FIELD_TERRAIN_ANY))
+                if (ShouldClearTerrain(battlerAtk, B_TERRAIN_COSMIC)
+                    || ShouldClearTerrain(battlerAtk, gFieldTimers.terrain != B_TERRAIN_NONE))
                     ADJUST_SCORE(DECENT_EFFECT);
                 break;
             case MOVE_EFFECT_ELECTRIC_TERRAIN:
