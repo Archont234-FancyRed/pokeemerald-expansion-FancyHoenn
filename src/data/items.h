@@ -9636,6 +9636,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_GrassySeed,
     },
 
+    [ITEM_COSMIC_SEED] =
+    {
+        .name = ITEM_NAME("Cosmic Seed"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 4000,
+        .holdEffect = HOLD_EFFECT_TERRAIN_SEED,
+        .holdEffectParam = HOLD_EFFECT_PARAM_COSMIC_TERRAIN,
+        .description = COMPOUND_STRING(
+            "Raises Speed on\n"
+            "Cosmic Terrain,\n"
+            "but only once."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_HELD_ITEM,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 10,
+        .iconPic = gItemIcon_TerrainSeed,
+        .iconPalette = gItemIconPalette_CosmicSeed,
+    },
+
 // Type-activated stat modifiers
 
     [ITEM_ABSORB_BULB] =

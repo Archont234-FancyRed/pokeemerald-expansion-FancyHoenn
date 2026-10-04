@@ -1333,6 +1333,7 @@ const u16 gItemIconPalette_ElectricSeed[] = INCGFX_U16("graphics/items/icon_pale
 const u16 gItemIconPalette_PsychicSeed[] = INCGFX_U16("graphics/items/icon_palettes/psychic_seed.pal", ".gbapal");
 const u16 gItemIconPalette_MistySeed[] = INCGFX_U16("graphics/items/icon_palettes/misty_seed.pal", ".gbapal");
 const u16 gItemIconPalette_GrassySeed[] = INCGFX_U16("graphics/items/icon_palettes/grassy_seed.pal", ".gbapal");
+const u16 gItemIconPalette_CosmicSeed[] = INCGFX_U16("graphics/items/icon_palettes/cosmic_seed.pal", ".gbapal");
 
 // Type-activated Stat Modifiers
 

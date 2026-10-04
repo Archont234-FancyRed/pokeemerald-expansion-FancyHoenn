@@ -1252,6 +1252,7 @@ extern const u16 gItemIconPalette_ElectricSeed[];
 extern const u16 gItemIconPalette_PsychicSeed[];
 extern const u16 gItemIconPalette_MistySeed[];
 extern const u16 gItemIconPalette_GrassySeed[];
+extern const u16 gItemIconPalette_CosmicSeed[];
 // Type-activated Stat Modifiers
 extern const u32 gItemIcon_AbsorbBulb[];
 extern const u16 gItemIconPalette_AbsorbBulb[];

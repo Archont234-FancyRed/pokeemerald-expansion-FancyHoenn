@@ -1051,8 +1051,14 @@ enum __attribute__((packed)) Item
     ITEM_BAXCALIBRITE = 871,
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
+    ITEM_COSMIC_SEED = 874,
 
     ITEMS_COUNT,
+
+    //// Custom 
+    //    ITEM_COSMIC_SEED = 1000,
+    //    ITEMS_COUNT_CUSTOM,
+
     ITEM_FIELD_ARROW = ITEMS_COUNT,
 };
 
