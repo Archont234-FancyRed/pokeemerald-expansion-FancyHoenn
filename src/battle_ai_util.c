@@ -5735,6 +5735,19 @@ bool32 DoesIntimidateRaiseStats(enum Ability ability)
     }
 }
 
+bool32 DoesShinyHairRaiseStats(enum Ability ability)
+{
+    switch (ability)
+    {
+    case ABILITY_COMPETITIVE:
+    case ABILITY_CONTRARY:
+    case ABILITY_DEFIANT:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 // TODO: work out when to attack into the player's contextually 'beneficial' ability
 bool32 ShouldTriggerAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability ability)
 {
@@ -6075,6 +6088,37 @@ enum AIScore BattlerBenefitsFromAbilityScore(enum BattlerId battler, enum Abilit
             return IncreaseStatDownScore(battler, GetBattlerLeftFoe(battler), STAT_ATK);
         }
     }
+
+    case ABILITY_SHINYHAIR:
+    {
+        enum Ability abilityDef = aiData->abilities[GetBattlerLeftFoe(battler)];
+        if (DoesShinyHairRaiseStats(abilityDef))
+        {
+            return AWFUL_EFFECT;
+        }
+        else
+        {
+            if (HasTwoOpponents(battler))
+            {
+                abilityDef = aiData->abilities[GetBattlerRightFoe(battler)];
+                if (DoesShinyHairRaiseStats(abilityDef))
+                {
+                    return AWFUL_EFFECT;
+                }
+                else
+                {
+                    enum AIScore score1 = IncreaseStatDownScore(battler, GetBattlerLeftFoe(battler), STAT_ACC);
+                    enum AIScore score2 = IncreaseStatDownScore(battler, GetBattlerRightFoe(battler), STAT_ACC);
+                    if (score1 > score2)
+                        return score1;
+                    else
+                        return score2;
+                }
+            }
+            return IncreaseStatDownScore(battler, GetBattlerLeftFoe(battler), STAT_ACC);
+        }
+    }
+
     case ABILITY_NO_GUARD:
         if (HasMoveWithLowAccuracy(battler, GetBattlerLeftFoe(battler), LOW_ACCURACY_THRESHOLD, FALSE)
          || HasMoveWithLowAccuracy(battler, GetBattlerRightFoe(battler), LOW_ACCURACY_THRESHOLD, FALSE))

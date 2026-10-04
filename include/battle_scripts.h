@@ -172,6 +172,7 @@ extern const u8 BattleScript_TraceActivates[];
 extern const u8 BattleScript_AbilityHpHeal[];
 extern const u8 BattleScript_ShedSkinActivates[];
 extern const u8 BattleScript_IntimidateActivates[];
+extern const u8 BattleScript_ShinyHairActivates[];
 extern const u8 BattleScript_TookAttack[];
 extern const u8 BattleScript_SturdyPreventsOHKO[];
 extern const u8 BattleScript_DampStopsExplosion[];

@@ -3452,6 +3452,20 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 effect++;
             }
             break;
+        case ABILITY_SHINYHAIR:
+            if (shouldAbilityTrigger && !IsOpposingSideEmpty(battler))
+            {
+                gEffectBattler = battler;
+                for (enum BattlerId i = 0; i < gBattlersCount; i++)
+                {
+                    if (IsBattlerAlly(battler, i) || !IsBattlerAlive(i))
+                        continue;
+                    SetStatChange(i, STAT_ACC, -2);
+                }
+                BattleScriptCall(BattleScript_ShinyHairActivates); // Sets a flag to check for intim failure. Similar abilities should use BattleScript_AbilityStatChange.
+                effect++;
+            }
+            break;
         case ABILITY_SUPERSWEET_SYRUP:
             if (shouldAbilityTrigger
              && !GetBattlerPartyState(battler)->supersweetSyrup

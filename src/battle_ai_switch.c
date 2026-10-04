@@ -50,6 +50,7 @@ static void SetBattlerVolatilesForSwitchin(enum BattlerId battler, u32 weather, 
 bool32 IsSwitchinTSpikesAffected(enum BattlerId battler);
 static bool32 IsOpponentPhysicalAttacker(enum BattlerId battler, enum BattlerId opposingBattler);
 static bool32 CanIntimidateLowerOpponentAtk(enum BattlerId battler, enum BattlerId opposingBattler);
+static bool32 CanShinyHairLowerOpponentAcc(enum BattlerId battler, enum BattlerId opposingBattler);
 static bool32 ShouldSwitchIfIntimidateBenefit(struct SwitchAiContext *switchContext);
 static bool32 DoesMostSuitableSwitchinBenefitFromWish(enum BattlerId battler);
 static u32 GetSwitchinCandidate(u32 switchinCategory, enum BattlerId battler, int lastId, enum SwitchType switchType);
@@ -212,6 +213,8 @@ u32 GetSwitchChance(enum ShouldSwitchScenario shouldSwitchScenario)
         return SHOULD_SWITCH_REGENERATOR_STATS_RAISED_PERCENTAGE;
     case SHOULD_SWITCH_INTIMIDATE:
         return SHOULD_SWITCH_INTIMIDATE_PERCENTAGE;
+    case SHOULD_SWITCH_SHINYHAIR:
+        return SHOULD_SWITCH_SHINYHAIR_PERCENTAGE;
     case SHOULD_SWITCH_INTIMIDATE_STATS_RAISED:
         return SHOULD_SWITCH_INTIMIDATE_STATS_RAISED_PERCENTAGE;
     case SHOULD_SWITCH_ENCORE_STATUS:
@@ -966,6 +969,41 @@ static bool32 CanIntimidateLowerOpponentAtk(enum BattlerId battler, enum Battler
     return TRUE;
 }
 
+static bool32 CanShinyHairLowerOpponentAcc(enum BattlerId battler, enum BattlerId opposingBattler)
+{
+    enum Ability abilityDef = gAiLogicData->abilities[opposingBattler];
+
+    // If Attack is already at -2 or lower, repeated Intimidate cycles aren't worth it.
+    if (gBattleMons[opposingBattler].statStages[STAT_ACC] <= DEFAULT_STAT_STAGE - 3)
+        return FALSE;
+
+    if (gBattleMons[opposingBattler].volatiles.substitute)
+        return FALSE;
+
+    if (gAiLogicData->holdEffects[opposingBattler] == HOLD_EFFECT_CLEAR_AMULET)
+        return FALSE;
+
+    if (gSideStatuses[GetBattlerSide(opposingBattler)] & SIDE_STATUS_MIST)
+        return FALSE;
+
+    if (IS_BATTLER_OF_TYPE(opposingBattler, TYPE_GRASS) && AI_IsAbilityOnSide(opposingBattler, ABILITY_FLOWER_VEIL))
+        return FALSE;
+
+    switch (abilityDef)
+    {
+    case ABILITY_HYPER_CUTTER:
+    case ABILITY_CLEAR_BODY:
+    case ABILITY_FULL_METAL_BODY:
+    case ABILITY_WHITE_SMOKE:
+    case ABILITY_KEEN_EYE:
+        return FALSE;
+    default:
+        break;
+    }
+
+    return TRUE;
+}
+
 static bool32 ShouldSwitchIfIntimidateBenefit(struct SwitchAiContext *switchContext)
 {
     // Keep Intimidate cycling behavior restricted to smart-switching AI
@@ -994,6 +1032,40 @@ static bool32 ShouldSwitchIfIntimidateBenefit(struct SwitchAiContext *switchCont
         if (canLowerAtk && (DoesIntimidateRaiseStats(abilityDef) || abilityDef == ABILITY_MIRROR_ARMOR))
             return FALSE;
         if (canLowerAtk && IsOpponentPhysicalAttacker(switchContext->battler, opposingPartner))
+            hasValidTarget = TRUE;
+    }
+
+    return hasValidTarget;
+}
+
+static bool32 ShouldSwitchIfShinyHairBenefit(struct SwitchAiContext* switchContext)
+{
+    // Keep Intimidate cycling behavior restricted to smart-switching AI
+    if (!(gAiThinkingStruct->aiFlags[switchContext->battler] & AI_FLAG_SMART_SWITCHING))
+        return FALSE;
+
+    enum BattlerId opposingPartner = GetPartnerBattler(switchContext->opposingBattler);
+    bool32 hasValidTarget = FALSE;
+
+    if (IsBattlerAlive(switchContext->opposingBattler))
+    {
+        enum Ability abilityDef = gAiLogicData->abilities[switchContext->opposingBattler];
+        bool32 canLowerAcc = CanShinyHairLowerOpponentAcc(switchContext->battler, switchContext->opposingBattler);
+
+        if (canLowerAcc && (DoesShinyHairRaiseStats(abilityDef) || abilityDef == ABILITY_MIRROR_ARMOR))
+            return FALSE;
+        if (canLowerAcc)
+            hasValidTarget = TRUE;
+    }
+
+    if (IsDoubleBattle() && IsBattlerAlive(opposingPartner))
+    {
+        enum Ability abilityDef = gAiLogicData->abilities[opposingPartner];
+        bool32 canLowerAcc = CanShinyHairLowerOpponentAcc(switchContext->battler, opposingPartner);
+
+        if (canLowerAcc && (DoesShinyHairRaiseStats(abilityDef) || abilityDef == ABILITY_MIRROR_ARMOR))
+            return FALSE;
+        if (canLowerAcc)
             hasValidTarget = TRUE;
     }
 
@@ -1040,6 +1112,15 @@ static bool32 ShouldSwitchIfAbilityBenefit(struct SwitchAiContext *switchContext
         if (ShouldSwitchIfIntimidateBenefit(switchContext)
             && gAiLogicData->mostSuitableMonId[switchContext->battler] != PARTY_SIZE
             && (switchContext->hasStatRaised ? RandomPercentage(RNG_AI_SWITCH_INTIMIDATE, GetSwitchChance(SHOULD_SWITCH_INTIMIDATE_STATS_RAISED)) : RandomPercentage(RNG_AI_SWITCH_INTIMIDATE, GetSwitchChance(SHOULD_SWITCH_INTIMIDATE))))
+            break;
+
+        return FALSE;
+
+    case ABILITY_SHINYHAIR:
+        // TODO: In ShouldSwitch cleanup, gate Intimidate cycling behind "stay in instead if the current mon wins the 1v1" to avoid duplicating Bad Odds logic here.
+        if (ShouldSwitchIfShinyHairBenefit(switchContext)
+            && gAiLogicData->mostSuitableMonId[switchContext->battler] != PARTY_SIZE
+            && (switchContext->hasStatRaised ? RandomPercentage(RNG_AI_SWITCH_SHINYHAIR, GetSwitchChance(SHOULD_SWITCH_INTIMIDATE_STATS_RAISED)) : RandomPercentage(RNG_AI_SWITCH_SHINYHAIR, GetSwitchChance(SHOULD_SWITCH_SHINYHAIR))))
             break;
 
         return FALSE;
@@ -2775,6 +2856,24 @@ static void SetBattlerStatStagesForSwitchin(enum BattlerId battler, enum Battler
             {
                 opponentStatDrop = TRUE;
                 gBattleMons[opposingBattler].statStages[STAT_ATK] -= 1;
+                if (gAiLogicData->abilities[opposingBattler] == ABILITY_DEFIANT)
+                    gBattleMons[opposingBattler].statStages[STAT_ATK] += 2;
+                if (gAiLogicData->abilities[opposingBattler] == ABILITY_COMPETITIVE)
+                    gBattleMons[opposingBattler].statStages[STAT_SPATK] += 2;
+            }
+        }
+        break;
+    case ABILITY_SHINYHAIR:
+        if (CanLowerStat(battler, opposingBattler, gAiLogicData, STAT_ACC))
+        {
+            if (gAiLogicData->abilities[opposingBattler] == ABILITY_CONTRARY)
+            {
+                gBattleMons[opposingBattler].statStages[STAT_ACC] += 2;
+            }
+            else
+            {
+                opponentStatDrop = TRUE;
+                gBattleMons[opposingBattler].statStages[STAT_ACC] -= 2;
                 if (gAiLogicData->abilities[opposingBattler] == ABILITY_DEFIANT)
                     gBattleMons[opposingBattler].statStages[STAT_ATK] += 2;
                 if (gAiLogicData->abilities[opposingBattler] == ABILITY_COMPETITIVE)

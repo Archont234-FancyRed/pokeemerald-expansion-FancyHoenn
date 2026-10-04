@@ -182,6 +182,13 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .aiRating = 7,
     },
 
+    [ABILITY_SHINYHAIR] =
+    {
+        .name = _("Shiny Hair"),
+        .description = COMPOUND_STRING("Harshly lowers foes' Acc on entry."),
+        .aiRating = 7,
+    },
+
     [ABILITY_SHADOW_TAG] =
     {
         .name = _("Shadow Tag"),

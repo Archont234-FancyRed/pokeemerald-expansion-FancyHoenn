@@ -4669,6 +4669,12 @@ BattleScript_IntimidateActivates::
 	destroyabilitypopup
 	return
 
+BattleScript_ShinyHairActivates::
+	call BattleScript_AbilityPopUp
+	trystatchanges BS_EFFECT_BATTLER, STAT_CHANGE_SHINYHAIR
+	destroyabilitypopup
+	return
+
 BattleScript_IntimidateWontDecrease:
 	printstring STRINGID_STATSWONTDECREASE
     return

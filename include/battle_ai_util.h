@@ -271,6 +271,7 @@ bool32 IsWakeupTurn(enum BattlerId battler);
 bool32 IsMoxieTypeAbility(enum Ability ability);
 bool32 DoesAbilityRaiseStatsWhenLowered(enum Ability ability);
 bool32 DoesIntimidateRaiseStats(enum Ability ability);
+bool32 DoesShinyHairRaiseStats(enum Ability ability);
 bool32 ShouldTriggerAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Ability ability);
 bool32 CanEffectChangeAbility(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move, struct AiLogicData *aiData);
 void AbilityChangeScore(enum BattlerId battlerAtk, enum BattlerId battlerDef, enum Move move, s32 *score, struct AiLogicData *aiData);

@@ -29,7 +29,8 @@ struct StatChange
     u32 ignoreCertainFailure:1; // for mirror armor and substitute
     u32 mirrorHerbActivation:1;
     u32 opportunistActivation:1;
-    u32 padding:17;
+    u32 shinyHairActivation:1;
+    u32 padding:18;
 };
 
 extern enum Stat const sAccurateStatOrder[NUM_BATTLE_STATS];

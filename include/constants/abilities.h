@@ -345,6 +345,7 @@ enum __attribute__((packed)) Ability
 
     // Custom 
     ABILITY_COSMIC_SURGE = 1000,
+    ABILITY_SHINYHAIR = 1001,
     ABILITIES_COUNT_CUSTOM,
 
     ABILITIES_COUNT = ABILITIES_COUNT_CUSTOM,

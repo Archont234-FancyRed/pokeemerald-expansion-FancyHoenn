@@ -8976,6 +8976,7 @@ static void SetStatChangeFlags(struct StatChange *st, u32 flags)
     st->stickyWeb = SET_FLAG(STAT_CHANGE_STICKY_WEB);
     st->mirrorHerbActivation = SET_FLAG(STAT_CHANGE_MIRROR_HERB);
     st->opportunistActivation = SET_FLAG(STAT_CHANGE_OPPORTUNIST);
+    st->shinyHairActivation = SET_FLAG(STAT_CHANGE_SHINYHAIR);
 }
 #undef SET_FLAG
 
